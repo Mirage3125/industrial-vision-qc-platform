@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Environments and local configuration
+.venv/
+.env
+.env.*
+!.env.example
+!.env.docker.example
+
+# Runtime state
+*.db
+*.sqlite3
+logs/
+artifacts/
+/models/
+*.pt
+*.onnx
+*.engine
+data/raw/
+data/interim/
+data/processed/
+data/import/
+
+# IDE and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Frontend generated files
+node_modules/
+.next/
+out/
+*.tsbuildinfo

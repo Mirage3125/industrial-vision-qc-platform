@@ -1,0 +1,17 @@
+dataset_name: NEU-DET
+dataset_version: local-unversioned
+dataset_root: data/neu-det-yolo
+class_names:
+  - crazing
+  - inclusion
+  - patches
+  - pitted_surface
+  - rolled_in_scale
+  - scratches
+seed: 42
+validation_ratio: 0.20
+allowed_extensions:
+  - .jpg
+  - .jpeg
+  - .png
+  - .bmp

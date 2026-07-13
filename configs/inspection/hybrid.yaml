@@ -1,0 +1,24 @@
+decision_rule_version: "stage8.hybrid.v1"
+yolo_confidence_threshold: 0.25
+yolo_low_confidence_threshold: 0.5
+anomaly_threshold: 8.35130786895752
+blur_variance_threshold: 30.0
+overexposed_gray_threshold: 245
+overexposed_ratio_threshold: 0.85
+underexposed_gray_threshold: 15
+underexposed_ratio_threshold: 0.85
+min_width: 64
+min_height: 64
+force_review: false
+high_risk_classes:
+  - scratches
+  - pitted_surface
+detection_class_names:
+  - crazing
+  - inclusion
+  - patches
+  - pitted_surface
+  - rolled_in_scale
+  - scratches
+default_yolo_model_path: artifacts/training/neu_det_baseline/weights/best.onnx
+default_anomaly_model_path: artifacts/training/anomaly/padim_statistical_metal_nut/model.npz

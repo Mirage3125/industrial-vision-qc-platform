@@ -1,0 +1,116 @@
+{
+  "release": "v1.0.0",
+  "created_from_local_reports": "2026-07-13",
+  "yolo11n_neu_det": {
+    "dataset": "NEU-DET",
+    "image_xml_pairs": {
+      "images": 1800,
+      "xml": 1800
+    },
+    "split": {
+      "train": 1261,
+      "val": 359,
+      "test": 180
+    },
+    "classes": [
+      "crazing",
+      "inclusion",
+      "patches",
+      "pitted_surface",
+      "rolled_in_scale",
+      "scratches"
+    ],
+    "test_metrics": {
+      "precision": 0.7168635357271912,
+      "recall": 0.7002696265193609,
+      "map50": 0.7466177275756101,
+      "map50_95": 0.4337455213270963,
+      "fitness": 0.4650327419519477
+    },
+    "per_class_map50_95": {
+      "crazing": 0.15075209444889254,
+      "inclusion": 0.4702125540160165,
+      "patches": 0.5698573056223325,
+      "pitted_surface": 0.5076442383007783,
+      "rolled_in_scale": 0.3234671351990927,
+      "scratches": 0.5805398003754652
+    }
+  },
+  "anomaly_detection": {
+    "algorithm": "padim_statistical",
+    "implementation": "custom OpenCV/NumPy statistical anomaly detector, PaDiM-style but not a full PaDiM paper reproduction",
+    "category": "metal_nut",
+    "image_size": 256,
+    "train_good_count": 220,
+    "test_sample_count": 115,
+    "threshold": 8.35130786895752,
+    "mask_threshold": 2.588404655456543,
+    "image_level_auroc": 0.7346041055718475,
+    "pixel_level_auroc": 0.44984518116776395,
+    "image_level_f1": 0.5970149253731343,
+    "pixel_level_f1": 0.11926463516419131,
+    "normal_false_positive_rate": 0.045454545454545456,
+    "anomaly_false_negative_rate": 0.5698924731182796,
+    "average_inference_time_ms": 58.616535652246334,
+    "p50_inference_time_ms": 52.98739999943791,
+    "p95_inference_time_ms": 93.22376999971311,
+    "p99_inference_time_ms": 118.47736400031862
+  },
+  "onnx_consistency": {
+    "same_shape": true,
+    "raw_outputs_close": true,
+    "max_absolute_difference": 0.001983642578125,
+    "pytorch_detection_count": 3,
+    "onnx_detection_count": 3,
+    "atol": 0.001,
+    "rtol": 0.001
+  },
+  "onnx_benchmark": {
+    "model_size_mib": 9.9432,
+    "cpu": {
+      "status": "available",
+      "requested_provider": "CPUExecutionProvider",
+      "actual_provider": "CPUExecutionProvider",
+      "session_initialization_ms": 191.4777,
+      "results": [
+        {
+          "batch_size": 1,
+          "first_inference_ms": 38.724,
+          "average_latency_ms": 41.026,
+          "p50_latency_ms": 38.8025,
+          "p95_latency_ms": 55.0858,
+          "p99_latency_ms": 60.2672,
+          "throughput_images_per_second": 24.3748
+        },
+        {
+          "batch_size": 4,
+          "first_inference_ms": 185.4141,
+          "average_latency_ms": 182.907,
+          "p50_latency_ms": 179.0516,
+          "p95_latency_ms": 211.5462,
+          "p99_latency_ms": 228.7962,
+          "throughput_images_per_second": 21.869
+        }
+      ]
+    },
+    "cuda": {
+      "status": "unavailable",
+      "requested_provider": "CUDAExecutionProvider",
+      "actual_provider": "CPUExecutionProvider",
+      "error": "Requested provider failed to load and ONNX Runtime fell back to CPU"
+    },
+    "tensorrt": {
+      "status": "not_verified"
+    }
+  },
+  "production_simulator": {
+    "mode": "hybrid",
+    "total_sent": 2,
+    "success_count": 2,
+    "failure_count": 0,
+    "auto_pass_count": 0,
+    "review_required_count": 2,
+    "average_response_ms": 929.417,
+    "p95_response_ms": 933.582
+  }
+}

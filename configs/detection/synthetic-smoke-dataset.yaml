@@ -1,0 +1,14 @@
+dataset_name: synthetic-smoke-only
+dataset_version: generated-not-for-metrics
+dataset_root: artifacts/detection/smoke-data/yolo
+class_names:
+  - crazing
+  - inclusion
+  - patches
+  - pitted_surface
+  - rolled_in_scale
+  - scratches
+seed: 42
+validation_ratio: 0.25
+allowed_extensions:
+  - .jpg

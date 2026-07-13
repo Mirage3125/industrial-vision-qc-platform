@@ -1,0 +1,24 @@
+image_extensions:
+  - .jpg
+  - .jpeg
+  - .png
+  - .bmp
+class_names:
+  - crazing
+  - inclusion
+  - patches
+  - pitted_surface
+  - rolled_in_scale
+  - scratches
+blur_variance_threshold: 80.0
+overexposed_gray_threshold: 245
+overexposed_ratio_threshold: 0.80
+underexposed_gray_threshold: 15
+underexposed_ratio_threshold: 0.80
+perceptual_hash_hamming_threshold: 4
+tiny_box_min_width_px: 4.0
+tiny_box_min_height_px: 4.0
+tiny_box_min_area_px: 24.0
+thumbnail_width: 240
+thumbnail_height: 180
+max_issue_samples: 200

@@ -1,0 +1,12 @@
+algorithm: padim_statistical
+category: metal_nut
+image_size: 256
+threshold_quantile: 0.995
+mask_threshold_quantile: 0.995
+gaussian_blur_kernel: 9
+min_component_area: 16
+seed: 42
+data_root: data/raw/mvtec-ad
+artifact_dir: artifacts/training/anomaly/padim_statistical_metal_nut
+model_path: artifacts/training/anomaly/padim_statistical_metal_nut/model.npz
+evaluation_dir: artifacts/anomaly_evaluation/padim_statistical_metal_nut
