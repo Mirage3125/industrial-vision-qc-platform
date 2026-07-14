@@ -34,7 +34,36 @@ jobs:
           PY
       - name: Check obvious secrets
         run: |
-          ! git grep -n -E '(AKIA[0-9A-Z]{16}|BEGIN RSA PRIVATE KEY|BEGIN OPENSSH PRIVATE KEY|password\s*=\s*["'\''][^"'\'']{8,})' -- . ':!frontend/package-lock.json'
+          python - <<'PY'
+          import re
+          import subprocess
+          import sys
+          from pathlib import Path
+
+          skip = {
+              ".github/workflows/ci.yml",
+              "frontend/package-lock.json",
+          }
+          patterns = [
+              re.compile("AKIA" + r"[0-9A-Z]{16}"),
+              re.compile("BEGIN RSA PRIVATE KEY"),
+              re.compile("BEGIN OPENSSH PRIVATE KEY"),
+              re.compile("password" + r"\s*=\s*['\"][^'\"]{8,}", re.IGNORECASE),
+          ]
+          hits = []
+          for path in subprocess.check_output(["git", "ls-files"], text=True).splitlines():
+              if path in skip:
+                  continue
+              text = Path(path).read_text(encoding="utf-8", errors="ignore")
+              for line_no, line in enumerate(text.splitlines(), start=1):
+                  if any(pattern.search(line) for pattern in patterns):
+                      hits.append(f"{path}:{line_no}")
+
+          if hits:
+              print("Potential secrets found:")
+              print("\n".join(hits))
+              sys.exit(1)
+          PY
       - name: Check tracked large files
         run: |
           python - <<'PY'
