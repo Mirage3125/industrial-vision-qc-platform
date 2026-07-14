@@ -14,7 +14,24 @@ jobs:
           python-version: "3.11"
       - name: Ensure env files are not committed
         run: |
-          ! git ls-files | grep -E '(^|/)\.env($|\.)'
+          python - <<'PY'
+          import subprocess
+          import sys
+
+          allowed = {
+              ".env.example",
+              ".env.docker.example",
+              "frontend/.env.example",
+          }
+          offenders = [
+              path
+              for path in subprocess.check_output(["git", "ls-files"], text=True).splitlines()
+              if path.rsplit("/", 1)[-1].startswith(".env") and path not in allowed
+          ]
+          if offenders:
+              print("Committed env files are not allowed:", offenders)
+              sys.exit(1)
+          PY
       - name: Check obvious secrets
         run: |
           ! git grep -n -E '(AKIA[0-9A-Z]{16}|BEGIN RSA PRIVATE KEY|BEGIN OPENSSH PRIVATE KEY|password\s*=\s*["'\''][^"'\'']{8,})' -- . ':!frontend/package-lock.json'

@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 from uuid import uuid4
 
+import pytest
 from fastapi.testclient import TestClient
 
 from backend.app.db.base import Base
@@ -16,6 +17,15 @@ YOLO_MODEL = "artifacts/training/neu_det_baseline/weights/best.onnx"
 ANOMALY_MODEL = "artifacts/training/anomaly/padim_statistical_metal_nut/model.npz"
 KNOWN_DEFECT_IMAGE = "data/processed/neu-det-yolo/images/test/scratches_13.jpg"
 NORMALISH_IMAGE = "data/raw/mvtec-ad/metal_nut/test/good/000.png"
+
+
+def _require_local_artifacts(*paths: str) -> None:
+    missing = [path for path in paths if not Path(path).is_file()]
+    if missing:
+        pytest.skip(
+            "Stage 8 integration test requires local model/data artifacts that are not "
+            f"committed to Git: {missing}"
+        )
 
 
 def _reset_db() -> None:
@@ -53,6 +63,7 @@ def _seed_models() -> tuple[str, str]:
 
 
 def test_stage8_real_hybrid_review_feedback_export_and_idempotency(tmp_path: Path) -> None:
+    _require_local_artifacts(YOLO_MODEL, ANOMALY_MODEL, KNOWN_DEFECT_IMAGE)
     _reset_db()
     _seed_models()
     client = TestClient(create_app())
@@ -137,6 +148,7 @@ def test_stage8_real_hybrid_review_feedback_export_and_idempotency(tmp_path: Pat
 
 
 def test_stage8_review_approve_and_model_rollback() -> None:
+    _require_local_artifacts(YOLO_MODEL, ANOMALY_MODEL, NORMALISH_IMAGE)
     _reset_db()
     anomaly_id = _seed_models()[1]
     client = TestClient(create_app())
